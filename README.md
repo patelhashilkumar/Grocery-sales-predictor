@@ -1,74 +1,158 @@
-# Seasonal Product Demand Prediction 
+<div align="center">
 
-## 📌 Project Overview
-This project is a comprehensive Data Science Proof of Concept (POC) designed to predict the **Seasonal Demand Level** (High/Low) for grocery products. By leveraging historical sales data and advanced machine learning techniques, we aim to provide actionable insights for better inventory management and supply chain optimization.
+<img src="assets/banner.svg" alt="Grocery Sales Predictor" width="100%">
 
-## 🌐 Live Application
-Access the live demand prediction dashboard here: **[Grocery Sales Predictor App](https://ayushdas4890-grocery-sales-predictor-streamlit-app-paeuog.streamlit.app/)**
+# 🛒 Grocery Sales Predictor
 
-## 📊 Dataset
-**File**: `Groceries_dataset.csv`
+### A **seasonal demand-forecasting** app that predicts grocery sales from store, product &amp; temporal signals — served through an interactive Streamlit dashboard.
 
-The dataset contains transactional data representing daily sales of various grocery items. Key attributes include:
-- **Date**: The date of the transaction.
-- **itemDescription**: The name of the product sold.
-- **Member_number**: Unique identifier for the customer.
+<p>
+  <img alt="Python"       src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white">
+  <img alt="Streamlit"    src="https://img.shields.io/badge/Streamlit-app-FF4B4B?logo=streamlit&logoColor=white">
+  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikitlearn&logoColor=white">
+  <img alt="Pandas"       src="https://img.shields.io/badge/Pandas-data-150458?logo=pandas&logoColor=white">
+  <img alt="Plotly"       src="https://img.shields.io/badge/Plotly-charts-3F4F75?logo=plotly&logoColor=white">
+  <img alt="License"      src="https://img.shields.io/badge/License-MIT-green.svg">
+</p>
 
-*Note: The raw data is aggregated to a daily level to analyze sales trends and demand fluctuations.*
+<p>
+  <a href="#-overview"><b>Overview</b></a> ·
+  <a href="#-how-it-works"><b>How it works</b></a> ·
+  <a href="#-quick-start"><b>Quick Start</b></a> ·
+  <a href="#-project-structure"><b>Structure</b></a>
+</p>
 
-## 🎯 Objective
-The primary objective is to build a robust classification model that can accurately predict whether the demand for a specific period will be **"High"** or **"Low"**. This binary classification aids in decision-making processes regarding stock levels and promotional activities.
-
-## 🚀 Vision
-To transition from reactive inventory management to a **proactive, data-driven approach**. This model serves as the foundation for a scalable demand forecasting system that adapts to seasonal trends and minimizes both stockouts and overstock scenarios.
-
-## ⚙️ Workflow
-The project follows a rigorous Data Science lifecycle:
-
-1.  **Data Loading & Preprocessing**:
-    - Aggregating raw transactions into daily sales counts.
-    - Handling missing values and ensuring data consistency.
-2.  **Feature Engineering**:
-    - **Date Features**: Extracted Month, Day, Year, Quarter, DayOfWeek, and Weekend indicators.
-    - **Seasonality**: Mapped months to seasons (Winter, Spring, Summer, Fall) to capture cyclical trends.
-    - **Lag Features**: Created `Sales_Lag_1` to `Sales_Lag_14` to capture past sales influence.
-    - **Rolling Statistics**: Calculated Rolling Means and Standard Deviations (3, 7, 14, 30 days) to smooth noise and capture trends.
-3.  **Exploratory Data Analysis (EDA)**:
-    - Visualized monthly and seasonal sales distributions.
-    - Analyzed the correlation between features and the target variable.
-4.  **Model Implementation**:
-    - Trained multiple diverse classifiers to find the best fit.
-5.  **Evaluation**:
-    - Assessed models using Accuracy, Confusion Matrices (TP/TN/FP/FN), and ROC-AUC Curves.
-6.  **Validation**:
-    - Applied **K-Fold Cross-Validation** to ensure model robustness and prevent overfitting.
-7.  **Future Prediction**:
-    - Generated predictions for a future target date (Jan 1, 2016) to demonstrate practical application.
-
-## 🤖 Models Used
-We implemented and compared a variety of algorithms to ensure the best performance:
-
-1.  **Logistic Regression**: A baseline linear model for binary classification.
-2.  **Decision Tree Classifier**: To capture non-linear relationships and simple decision rules.
-3.  **Random Forest Classifier**: An ensemble of decision trees to reduce variance and improve accuracy.
-4.  **Gradient Boosting Classifier**: A powerful boosting technique that builds models sequentially to correct errors.
-5.  **Voting Classifier (Ensemble)**: A **Novelty** in this project, combining Soft Voting from Logistic Regression, Decision Tree, and Random Forest to leverage the strengths of each.
-
-## 🚧 Hurdles Faced & Management
-| Hurdle | Strategy / Solution |
-| :--- | :--- |
-| **Model Generalization** | Initial models might overfit to the training data. We mitigated this by implementing **10-Fold Cross-Validation** on our top performers (Random Forest & Gradient Boosting). |
-| **Feature Scale** | The dataset contained features with vastly different scales (e.g., rolling means vs. binary flags). We used `StandardScaler` to normalize all features before training. |
-| **Single Model Bias** | Relying on one model can be risky. We introduced a **Voting Classifier** to aggregate predictions, reducing the risk of individual model bias. |
-| **Seasonality Complexity** | Simple date features weren't enough. We engineered explicit **Seasonal Codes** and **Rolling Statistics** to capture the "beat" of the business. |
-
-## 🌟 Novelty
-- **Ensemble Learning**: The implementation of a `VotingClassifier` demonstrates an advanced approach to improving prediction stability by averaging out errors from diverse models.
-- **Rigorous Validation**: Unlike simple train-test splits, our use of **K-Fold Cross-Validation** provides a statistically significant measure of model performance, ensuring the results are reliable.
-- **Deep Feature Engineering**: The combination of Lag variations and multiple Rolling Windows created a rich dataset that captures both immediate and long-term trends.
-
-## 🏁 End Goal
-The ultimate goal is to deploy this model into a real-time environment where it can ingest live sales data and output daily demand forecasts. The current Proof of Concept (POC) successfully demonstrates this capability by predicting the demand for **January 1, 2016**, paving the way for full-scale production deployment.
+</div>
 
 ---
-*Created by the Data Science Team*
+
+> Give it a store, a product and a time window — it forecasts expected demand. The model learns seasonal and temporal patterns from historical transactions, and the **Streamlit** app turns those predictions into interactive Plotly charts so you can plan stock before the season hits.
+
+---
+
+## 📑 Table of Contents
+
+- [✨ Features](#-features)
+- [🧠 How It Works](#-how-it-works)
+- [⚡ Quick Start](#-quick-start)
+- [🚀 Running It](#-running-it)
+- [🗂 Project Structure](#-project-structure)
+- [📸 Screenshots](#-screenshots)
+- [🧰 Tech Stack](#-tech-stack)
+- [🗺 Roadmap](#-roadmap)
+- [📄 License](#-license)
+
+---
+
+## ✨ Features
+
+- 📈 **Seasonal demand forecasting** trained on real grocery transaction data (`Groceries_dataset.csv`).
+- 🧪 **Feature engineering** across store, product and temporal attributes (seasonality, recency, calendar).
+- 🤖 **Gradient-boosted regression (scikit-learn)** for the prediction model.
+- 🖥️ **Interactive multi-page Streamlit app** with Plotly visualizations and Lottie animations.
+- 🔮 **Future-demand projection** scripts for batch / programmatic predictions.
+- 📄 Includes a full **IEEE-format project report** documenting the methodology.
+
+---
+
+## 🧠 How It Works
+
+```mermaid
+flowchart LR
+    A([🗃️ Groceries_dataset.csv]) --> B[🧹 Clean &amp; preprocess<br/>Pandas]
+    B --> C[🧪 Feature engineering<br/>store · product · time]
+    C --> D[🤖 Train regression model<br/>scikit-learn]
+    D --> E[🔮 Predict future demand]
+    E --> F[📊 Streamlit + Plotly UI]
+```
+
+---
+
+## ⚡ Quick Start
+
+```bash
+git clone https://github.com/AyushDas4890/Grocery-sales-predictor.git
+cd Grocery-sales-predictor
+
+python -m venv venv
+source venv/bin/activate          # Windows: venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Running It
+
+<details open>
+<summary><b>🌐 Streamlit app (recommended)</b></summary>
+
+```bash
+streamlit run streamlit_app.py    # opens http://localhost:8501
+```
+Pick a store/product and explore forecasted demand with interactive charts.
+</details>
+
+<details>
+<summary><b>🔮 Batch prediction</b></summary>
+
+```bash
+python run_full_prediction.py     # end-to-end prediction run
+python predict_future_demand.py   # project future demand
+```
+</details>
+
+<details>
+<summary><b>📓 Training notebook</b></summary>
+
+Open `Seasonal_Demand_Prediction_Final_Workflow.ipynb` to see the full data-to-model workflow.
+</details>
+
+---
+
+## 🗂 Project Structure
+
+```
+Grocery-sales-predictor/
+├── streamlit_app.py                              # ⭐ interactive app
+├── Seasonal_Demand_Prediction_Final_Workflow.ipynb   # full training workflow
+├── run_full_prediction.py                        # end-to-end prediction
+├── predict_future_demand.py                      # future-demand projection
+├── notebook_prediction_code.py                   # extracted prediction code
+├── Groceries_dataset.csv                         # source data
+├── IEEE Project Report.pdf                        # methodology write-up
+└── requirements.txt
+```
+
+---
+
+## 📸 Screenshots
+
+> _Drop a screenshot/GIF of the app here once it's running._
+> ```markdown
+> ![App home](assets/app.png)
+> ![Forecast chart](assets/forecast.png)
+> ```
+
+---
+
+## 🧰 Tech Stack
+
+`Python` · `scikit-learn` · `Pandas` · `NumPy` · `Streamlit` · `streamlit-lottie` · `Plotly`
+
+---
+
+## 🗺 Roadmap
+
+- [ ] Add evaluation metrics (MAE / RMSE) to the UI
+- [ ] Compare multiple models side by side
+- [ ] Upload-your-own-CSV mode
+- [ ] Deploy to Streamlit Community Cloud
+
+---
+
+## 📄 License
+
+Released under the **MIT License** © 2026 Ayush Das. _(Add a `LICENSE` file if not present.)_
+
+<div align="center"><sub>Forecasting demand before the season hits.</sub></div>
