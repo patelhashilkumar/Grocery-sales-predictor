@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="Grocery Sales Predictor" width="100%">
+<img src="banner.svg" alt="Grocery Sales Predictor" width="100%">
 
 # 🛒 Grocery Sales Predictor
 
